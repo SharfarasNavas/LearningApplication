@@ -2,19 +2,44 @@
     <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template #header>
             <tr>
-                <th>Code</th>
+                <td>Action</td>
                 <th>Name</th>
-                <th>Category</th>
-                <th>Quantity</th>
+                <th>Gender</th>
+                <th>DateOfBirth</th>
+                <th>Rating</th>
+                <th>Status</th>
             </tr>
         </ng-template>
         <ng-template #body let-product>
             <tr>
-                <td>{{ product.code }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.category }}</td>
-                <td>{{ product.quantity }}</td>
+                <td style="width: 2px;">
+                    <i class="pi pi-pen-to-square" (click)="event(product.playerId)"></i> 
+                </td>
+                <td>{{ product.playerName }}</td>
+                <td>{{ product.gender ? 'Male' : 'Female'  }}</td>
+                <td>{{ product.dateofBirth | date:'dd-MMM-yyyy' }}</td>
+                <td><ng-container *ngFor="let star of [].constructor(5); let i = index">
+                    <i
+                      class="pi"
+                      [ngClass]="i < product.rating ? 'pi-star-fill' : 'pi-star'"
+                      style="color: gold;"
+                    ></i>
+                  </ng-container></td>
+                <td>{{ product.status }}</td>
             </tr>
         </ng-template>
     </p-table>
+</div>
+<div>
+    <div class="card flex justify-center">
+        <p-dialog header="Edit Profile" [(visible)]="visible" [style]="{ width: '25rem' }">
+            <form [formGroup]="editProfileForm">
+                  <div class="flex items-center gap-4 mb-2">
+                    <label for="playerName" class="font-semibold w-32">Name</label>
+                    <input pInputText id="playerName" formControlName="playerName" />
+                  </div>
+
+            </form>
+        </p-dialog>
+    </div>
 </div>

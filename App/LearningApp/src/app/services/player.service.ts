@@ -13,4 +13,8 @@ export class PlayerService {
   getData(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/api/PlayerDetails`);
   }
+
+  getDataById(EditId:any): Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/api/PlayerDetails/${EditId}`);
+  }
 }
